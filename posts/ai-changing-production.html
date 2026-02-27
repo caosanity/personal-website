@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How AI Is Changing the Production Floor — Jeff Cao</title>
+  <meta name="description" content="For years, AI felt like something that happened in labs and tech companies. Now I'm seeing it on the production floor in real, unglamorous ways." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { accent: '#3B82F6' },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body class="font-sans bg-white text-gray-900">
+
+  <!-- ─── Header ─── -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-blue-500 transition-shadow duration-200">
+    <div class="max-w-5xl mx-auto px-6 flex items-center justify-between h-16">
+      <a href="../index.html" class="font-bold text-white tracking-tight hover:text-blue-100 transition-colors">Jeff Cao</a>
+
+      <nav class="hidden md:flex items-center gap-6">
+        <a href="../index.html"    class="text-sm font-medium text-blue-100 hover:text-white transition-colors">About</a>
+        <a href="../projects.html" class="text-sm font-medium text-blue-100 hover:text-white transition-colors">Projects</a>
+        <a href="../posts.html"    class="text-sm font-semibold text-white border-b-2 border-white pb-0.5">Posts</a>
+        <div class="flex items-center gap-3 pl-4 border-l border-blue-400">
+          <a href="https://github.com/caosanity" target="_blank" rel="noopener noreferrer" class="text-blue-100 hover:text-white transition-colors" aria-label="GitHub">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/in/jeff-cao/" target="_blank" rel="noopener noreferrer" class="text-blue-100 hover:text-white transition-colors" aria-label="LinkedIn">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+        </div>
+      </nav>
+
+      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-blue-600 transition-colors text-white" aria-label="Toggle menu">
+        <svg id="menuIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        <svg id="closeIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden bg-blue-600">
+      <nav class="flex flex-col px-6 py-4 gap-4">
+        <a href="../index.html"    class="text-sm font-medium text-blue-100 hover:text-white transition-colors">About</a>
+        <a href="../projects.html" class="text-sm font-medium text-blue-100 hover:text-white transition-colors">Projects</a>
+        <a href="../posts.html"    class="text-sm font-semibold text-white">Posts</a>
+        <div class="flex items-center gap-4 pt-3 border-t border-blue-500">
+          <a href="https://github.com/caosanity" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-blue-100 hover:text-white transition-colors">GitHub</a>
+          <a href="https://www.linkedin.com/in/jeff-cao/" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-blue-100 hover:text-white transition-colors">LinkedIn</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pt-16">
+
+    <!-- ─── Post header ─── -->
+    <section class="bg-white py-16 border-b border-gray-100">
+      <div class="max-w-2xl mx-auto px-6">
+        <a href="../posts.html" class="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-blue-500 transition-colors mb-8">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+          </svg>
+          All Posts
+        </a>
+
+        <div class="flex flex-wrap gap-2 mb-5">
+          <span class="tag-ai text-xs font-semibold px-2 py-0.5 rounded-full">AI</span>
+          <span class="tag-industry text-xs font-semibold px-2 py-0.5 rounded-full border border-gray-200">Industry Thoughts</span>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight mb-4">
+          How AI Is Changing the Production Floor
+        </h1>
+
+        <div class="flex items-center gap-3 text-sm text-gray-400">
+          <span>Jeff Cao</span>
+          <span>·</span>
+          <time datetime="2026-02-15">February 15, 2026</time>
+          <span>·</span>
+          <span>5 min read</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Post body ─── -->
+    <section class="bg-white py-12">
+      <div class="max-w-2xl mx-auto px-6 prose-content">
+
+        <p>
+          For years, AI felt like something that happened in labs and tech companies — not on the floor of a production facility trying to hit a daily unit count. When I heard "AI in manufacturing," I pictured Boston Dynamics robots or some impossibly clean factory of the future. Not the place I work in.
+        </p>
+
+        <p>
+          That's starting to change. Not overnight, and not with fanfare. The AI making its way into production environments right now is quieter and more practical than the headlines suggest. Here's what I've actually observed.
+        </p>
+
+        <h2>Predictive maintenance is real — and it works</h2>
+
+        <p>
+          The first serious AI application I saw in production wasn't a robot. It was an alert. A sensor on a conveyor motor flagged an anomaly pattern that, according to the model, preceded a failure about 73% of the time. The maintenance team was skeptical. We ran it for 90 days.
+        </p>
+
+        <p>
+          We caught two failures before they happened. We avoided roughly 14 hours of unplanned downtime. The ROI paid for the sensor program many times over. The algorithm wasn't complicated — it was a trained anomaly detector on vibration and temperature data — but the impact was immediate and measurable.
+        </p>
+
+        <blockquote>
+          The most powerful AI in production right now isn't doing anything exotic. It's doing the boring, repetitive monitoring work that humans were never particularly good at.
+        </blockquote>
+
+        <h2>Scheduling assistance, not scheduling replacement</h2>
+
+        <p>
+          I wrote about this in more detail in my <a href="../projects.html" class="text-blue-500 hover:text-blue-700 underline">projects section</a>, but one of my most impactful projects was deploying ML-assisted production scheduling. The key word is "assisted." The model didn't replace the scheduler — it gave them a better starting point.
+        </p>
+
+        <p>
+          Our scheduler would spend Monday mornings working from a blank slate, balancing demand, capacity, maintenance windows, and about a dozen other variables. The model did the heavy lifting for the baseline. The human refined it based on context the model didn't have (the new hire on line 3 who needs more oversight, the supplier delivery that's probably going to be late again).
+        </p>
+
+        <p>
+          Scheduling time dropped from about 4 hours to under an hour. More importantly, the scheduler started catching things they hadn't had time to notice before — because they weren't buried in the baseline.
+        </p>
+
+        <h2>Quality inspection is where things get interesting</h2>
+
+        <p>
+          Computer vision for visual QC is moving fast. I've seen implementations at a few facilities that use cameras and trained models to catch defects that a human eye would miss at line speed. The accuracy isn't perfect, but it's consistently better than manual inspection at volume — and it doesn't get tired on hour six of a shift.
+        </p>
+
+        <p>
+          What's interesting to me isn't the technology. It's the change management challenge. QC inspectors don't want to be told a camera is better at their job than they are. The rollouts that work treat the model as a tool that flags items for human review, not a replacement for human judgment. The ones that fail try to remove the human from the loop too fast.
+        </p>
+
+        <h2>The challenge no one talks about enough</h2>
+
+        <p>
+          Most of the AI failures I've seen in production environments aren't technical. They're organizational. A model trained on last year's data performs poorly after a product change. An alert system gets ignored because it cried wolf too many times in month one. A dashboard no one uses because it wasn't built into the existing workflow.
+        </p>
+
+        <p>
+          The hardest part of AI in production isn't getting the model to work. It's getting the humans to trust it, use it well, and maintain it over time. That's a production management problem, not a data science problem.
+        </p>
+
+        <h2>Where I think this goes</h2>
+
+        <p>
+          I'm not in the camp that thinks AI will automate Production Managers out of existence anytime soon. If anything, the AI tools making their way into production are creating more demand for people who can think about systems, translate between technical and operational teams, and manage the human side of change.
+        </p>
+
+        <p>
+          What I do think is that PMs who understand how these tools work — not at a deep technical level, but well enough to evaluate them, advocate for the right ones, and implement them thoughtfully — will have a meaningful edge in the next five years.
+        </p>
+
+        <p>
+          That's why I keep paying attention. Not to stay ahead of hype, but to stay ahead of what's actually useful.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- ─── Back / nav ─── -->
+    <section class="bg-gray-50 py-12 border-t border-gray-100">
+      <div class="max-w-2xl mx-auto px-6 flex items-center justify-between">
+        <a href="../posts.html" class="inline-flex items-center gap-2 text-gray-600 hover:text-blue-500 transition-colors font-medium">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+          </svg>
+          Back to Posts
+        </a>
+        <a href="../projects.html" class="inline-flex items-center gap-2 text-gray-600 hover:text-blue-500 transition-colors font-medium">
+          See Projects
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── Footer ─── -->
+  <footer class="bg-white border-t border-gray-100 py-10">
+    <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-gray-400">© 2026 Jeff Cao. All rights reserved.</p>
+      <div class="flex items-center gap-5">
+        <a href="https://www.linkedin.com/in/jeff-cao/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-500 transition-colors" aria-label="LinkedIn">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+        <a href="https://github.com/caosanity" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-500 transition-colors" aria-label="GitHub">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
